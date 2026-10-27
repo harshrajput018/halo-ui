@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+:root {
+  --docs-code: #f7f7f9;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --docs-code: #131317;
+  }
+}
+:root[data-theme="dark"] {
+  --docs-code: #131317;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  background: var(--halo-bg);
+  color: var(--halo-fg);
+  font-family: var(--halo-font);
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.2s, color 0.2s;
+}
+.font-mono {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+}
+.docs-preview {
+  background-color: var(--halo-surface);
+  background-image: radial-gradient(color-mix(in oklab, var(--halo-fg) 9%, transparent) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

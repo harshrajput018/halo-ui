@@ -1,0 +1,377 @@
+/* Halo UI — every visual decision is a CSS variable, so theming is just overriding tokens. */
+
+:root {
+  --halo-accent: #6d5efc;
+  --halo-accent-fg: #ffffff;
+  --halo-accent-hover: color-mix(in oklab, var(--halo-accent) 88%, black);
+  --halo-accent-soft: color-mix(in oklab, var(--halo-accent) 14%, transparent);
+  --halo-bg: #ffffff;
+  --halo-surface: #ffffff;
+  --halo-surface-2: #f5f5f7;
+  --halo-fg: #18181b;
+  --halo-muted: #63636e;
+  --halo-border: #e3e3e8;
+  --halo-border-strong: #c9c9d1;
+  --halo-danger: #dc2626;
+  --halo-success: #15803d;
+  --halo-overlay: rgb(10 10 15 / 0.45);
+  --halo-ring: 0 0 0 2px var(--halo-bg), 0 0 0 4px var(--halo-accent);
+  --halo-radius: 10px;
+  --halo-radius-sm: 7px;
+  --halo-shadow: 0 1px 2px rgb(0 0 0 / 0.06), 0 8px 24px -6px rgb(0 0 0 / 0.16);
+  --halo-font: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --halo-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --halo-accent: #8b80ff;
+    --halo-accent-fg: #0d0b1f;
+    --halo-accent-hover: color-mix(in oklab, var(--halo-accent) 85%, white);
+    --halo-bg: #0e0e11;
+    --halo-surface: #17171c;
+    --halo-surface-2: #1f1f26;
+    --halo-fg: #ededf1;
+    --halo-muted: #9d9daa;
+    --halo-border: #2a2a33;
+    --halo-border-strong: #3b3b47;
+    --halo-danger: #f87171;
+    --halo-success: #4ade80;
+    --halo-overlay: rgb(0 0 0 / 0.6);
+    --halo-shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 12px 32px -8px rgb(0 0 0 / 0.7);
+  }
+}
+:root[data-theme="dark"] {
+  --halo-accent: #8b80ff;
+  --halo-accent-fg: #0d0b1f;
+  --halo-accent-hover: color-mix(in oklab, var(--halo-accent) 85%, white);
+  --halo-bg: #0e0e11;
+  --halo-surface: #17171c;
+  --halo-surface-2: #1f1f26;
+  --halo-fg: #ededf1;
+  --halo-muted: #9d9daa;
+  --halo-border: #2a2a33;
+  --halo-border-strong: #3b3b47;
+  --halo-danger: #f87171;
+  --halo-success: #4ade80;
+  --halo-overlay: rgb(0 0 0 / 0.6);
+  --halo-shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 12px 32px -8px rgb(0 0 0 / 0.7);
+}
+
+.halo-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ── Button ─────────────────────────────────────────── */
+.halo-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  height: 2.25rem;
+  padding: 0 0.95rem;
+  border: 1px solid transparent;
+  border-radius: var(--halo-radius-sm);
+  font: 500 0.875rem/1 var(--halo-font);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.1s;
+  -webkit-tap-highlight-color: transparent;
+}
+.halo-btn:focus-visible { outline: none; box-shadow: var(--halo-ring); }
+.halo-btn:active:not(:disabled):not([aria-busy]) { transform: translateY(1px); }
+.halo-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.halo-btn[aria-busy] { cursor: progress; }
+.halo-btn[data-size="sm"] { height: 1.875rem; padding: 0 0.7rem; font-size: 0.8125rem; }
+.halo-btn[data-size="lg"] { height: 2.75rem; padding: 0 1.25rem; font-size: 0.9375rem; }
+.halo-btn[data-variant="solid"] { background: var(--halo-accent); color: var(--halo-accent-fg); }
+.halo-btn[data-variant="solid"]:hover:not(:disabled) { background: var(--halo-accent-hover); }
+.halo-btn[data-variant="soft"] { background: var(--halo-accent-soft); color: var(--halo-accent); }
+.halo-btn[data-variant="soft"]:hover:not(:disabled) { background: color-mix(in oklab, var(--halo-accent) 22%, transparent); }
+.halo-btn[data-variant="outline"] { background: var(--halo-surface); border-color: var(--halo-border-strong); color: var(--halo-fg); }
+.halo-btn[data-variant="outline"]:hover:not(:disabled) { background: var(--halo-surface-2); }
+.halo-btn[data-variant="ghost"] { background: transparent; color: var(--halo-fg); }
+.halo-btn[data-variant="ghost"]:hover:not(:disabled) { background: var(--halo-surface-2); }
+.halo-btn[data-variant="danger"] { background: var(--halo-danger); color: #fff; }
+.halo-btn[data-variant="danger"]:hover:not(:disabled) { background: color-mix(in oklab, var(--halo-danger) 88%, black); }
+
+.halo-spinner {
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: halo-spin 0.7s linear infinite;
+}
+@keyframes halo-spin { to { transform: rotate(360deg); } }
+
+/* ── Dialog ─────────────────────────────────────────── */
+.halo-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: var(--halo-overlay);
+  backdrop-filter: blur(3px);
+  animation: halo-fade 0.15s ease-out;
+}
+.halo-dialog {
+  position: relative;
+  width: 100%;
+  max-width: 28rem;
+  max-height: calc(100dvh - 2rem);
+  overflow: auto;
+  padding: 1.5rem;
+  border: 1px solid var(--halo-border);
+  border-radius: calc(var(--halo-radius) + 4px);
+  background: var(--halo-surface);
+  color: var(--halo-fg);
+  box-shadow: var(--halo-shadow);
+  font-family: var(--halo-font);
+  animation: halo-pop 0.2s var(--halo-ease);
+}
+.halo-dialog:focus { outline: none; }
+.halo-dialog[data-size="sm"] { max-width: 22rem; }
+.halo-dialog[data-size="lg"] { max-width: 40rem; }
+.halo-dialog-title { margin: 0 2rem 0 0; font-size: 1.0625rem; font-weight: 600; letter-spacing: -0.01em; }
+.halo-dialog-desc { margin: 0.4rem 0 0; color: var(--halo-muted); font-size: 0.875rem; line-height: 1.55; }
+.halo-dialog-body { margin-top: 1.25rem; display: grid; gap: 1rem; }
+.halo-dialog-footer { margin-top: 1.5rem; display: flex; justify-content: flex-end; gap: 0.5rem; flex-wrap: wrap; }
+.halo-dialog-close {
+  position: absolute;
+  top: 0.9rem;
+  right: 0.9rem;
+  display: grid;
+  place-items: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border: 0;
+  border-radius: var(--halo-radius-sm);
+  background: transparent;
+  color: var(--halo-muted);
+  cursor: pointer;
+}
+.halo-dialog-close:hover { background: var(--halo-surface-2); color: var(--halo-fg); }
+.halo-dialog-close:focus-visible { outline: none; box-shadow: var(--halo-ring); }
+
+@keyframes halo-fade { from { opacity: 0; } }
+@keyframes halo-pop { from { opacity: 0; transform: translateY(6px) scale(0.98); } }
+
+/* ── Tabs ───────────────────────────────────────────── */
+.halo-tabs { font-family: var(--halo-font); color: var(--halo-fg); }
+.halo-tabs[data-orientation="vertical"] { display: flex; gap: 1.5rem; }
+.halo-tablist { display: flex; gap: 0.25rem; border-bottom: 1px solid var(--halo-border); }
+.halo-tabs[data-orientation="vertical"] .halo-tablist { flex-direction: column; border-bottom: 0; border-right: 1px solid var(--halo-border); }
+.halo-tab {
+  position: relative;
+  padding: 0.6rem 0.8rem;
+  border: 0;
+  background: transparent;
+  color: var(--halo-muted);
+  font: 500 0.875rem var(--halo-font);
+  cursor: pointer;
+  border-radius: var(--halo-radius-sm) var(--halo-radius-sm) 0 0;
+}
+.halo-tab:hover:not(:disabled) { color: var(--halo-fg); }
+.halo-tab[aria-selected="true"] { color: var(--halo-fg); }
+.halo-tab[aria-selected="true"]::after { content: ""; position: absolute; left: 0.5rem; right: 0.5rem; bottom: -1px; height: 2px; border-radius: 2px; background: var(--halo-accent); }
+.halo-tabs[data-orientation="vertical"] .halo-tab[aria-selected="true"]::after { left: auto; right: -1px; top: 0.4rem; bottom: 0.4rem; width: 2px; height: auto; }
+.halo-tab:focus-visible { outline: none; box-shadow: var(--halo-ring); }
+.halo-tab:disabled { opacity: 0.45; cursor: not-allowed; }
+.halo-tabpanel { padding: 1rem 0.25rem; font-size: 0.9rem; line-height: 1.6; }
+.halo-tabpanel:focus-visible { outline: none; box-shadow: var(--halo-ring); border-radius: var(--halo-radius-sm); }
+
+/* ── Floating surfaces: menu, listbox, tooltip ──────── */
+.halo-menu,
+.halo-listbox {
+  z-index: 1100;
+  min-width: 12rem;
+  max-height: min(20rem, 60vh);
+  overflow: auto;
+  margin: 0;
+  padding: 0.3rem;
+  list-style: none;
+  border: 1px solid var(--halo-border);
+  border-radius: var(--halo-radius);
+  background: var(--halo-surface);
+  color: var(--halo-fg);
+  box-shadow: var(--halo-shadow);
+  font: 0.875rem var(--halo-font);
+  animation: halo-pop 0.14s var(--halo-ease);
+}
+.halo-menu:focus { outline: none; }
+.halo-menuitem,
+.halo-option {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.45rem 0.6rem;
+  border-radius: var(--halo-radius-sm);
+  cursor: default;
+  user-select: none;
+  outline: none;
+}
+.halo-menuitem:focus,
+.halo-option[data-active] { background: var(--halo-accent-soft); }
+.halo-menuitem[data-danger] { color: var(--halo-danger); }
+.halo-menuitem[aria-disabled="true"],
+.halo-option[aria-disabled="true"] { opacity: 0.45; }
+.halo-menuitem-icon { display: grid; width: 1rem; color: var(--halo-muted); }
+.halo-menuitem-label { flex: 1; }
+.halo-kbd { font: 0.75rem ui-monospace, monospace; color: var(--halo-muted); }
+.halo-menu-sep { height: 1px; margin: 0.3rem -0.3rem; background: var(--halo-border); }
+.halo-menu-label { padding: 0.4rem 0.6rem 0.2rem; font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--halo-muted); }
+.halo-option-hint { margin-left: auto; color: var(--halo-muted); font-size: 0.8rem; }
+.halo-option-check { color: var(--halo-accent); flex-shrink: 0; }
+.halo-option[aria-selected="true"] { font-weight: 500; }
+.halo-empty { padding: 0.75rem; color: var(--halo-muted); text-align: center; }
+
+.halo-tooltip {
+  z-index: 1200;
+  max-width: 16rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+  background: var(--halo-fg);
+  color: var(--halo-bg);
+  font: 500 0.78rem/1.4 var(--halo-font);
+  pointer-events: none;
+  animation: halo-fade 0.12s ease-out;
+}
+
+/* ── Fields ─────────────────────────────────────────── */
+.halo-field { display: grid; gap: 0.4rem; font-family: var(--halo-font); color: var(--halo-fg); }
+.halo-label { font-size: 0.85rem; font-weight: 500; }
+.halo-required { color: var(--halo-danger); }
+.halo-hint { margin: 0; font-size: 0.8rem; color: var(--halo-muted); line-height: 1.45; }
+.halo-error { margin: 0; font-size: 0.8rem; color: var(--halo-danger); }
+.halo-input {
+  width: 100%;
+  height: 2.375rem;
+  padding: 0 0.75rem;
+  border: 1px solid var(--halo-border-strong);
+  border-radius: var(--halo-radius-sm);
+  background: var(--halo-surface);
+  color: var(--halo-fg);
+  font: 0.9rem var(--halo-font);
+  transition: border-color 0.15s, box-shadow 0.15s;
+  box-sizing: border-box;
+}
+.halo-input::placeholder { color: var(--halo-muted); opacity: 0.8; }
+.halo-input:hover { border-color: color-mix(in oklab, var(--halo-border-strong) 60%, var(--halo-fg)); }
+.halo-input:focus { outline: none; border-color: var(--halo-accent); box-shadow: 0 0 0 3px var(--halo-accent-soft); }
+.halo-input[aria-invalid="true"] { border-color: var(--halo-danger); }
+.halo-input[aria-invalid="true"]:focus { box-shadow: 0 0 0 3px color-mix(in oklab, var(--halo-danger) 18%, transparent); }
+
+.halo-combobox { position: relative; }
+.halo-combobox .halo-input { padding-right: 2.25rem; }
+.halo-combobox-toggle {
+  position: absolute;
+  right: 0.3rem;
+  top: 50%;
+  translate: 0 -50%;
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--halo-muted);
+  cursor: pointer;
+  transition: rotate 0.15s;
+}
+.halo-combobox[data-open] .halo-combobox-toggle { rotate: 180deg; }
+
+.halo-choice { display: flex; align-items: flex-start; gap: 0.65rem; font-family: var(--halo-font); color: var(--halo-fg); }
+.halo-choice-label { display: block; font-size: 0.9rem; font-weight: 500; line-height: 1.35rem; cursor: pointer; }
+
+.halo-switch {
+  position: relative;
+  flex-shrink: 0;
+  width: 2.4rem;
+  height: 1.4rem;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: var(--halo-border-strong);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.halo-switch[aria-checked="true"] { background: var(--halo-accent); }
+.halo-switch:focus-visible { outline: none; box-shadow: var(--halo-ring); }
+.halo-switch:disabled { opacity: 0.5; cursor: not-allowed; }
+.halo-switch-thumb {
+  position: absolute;
+  top: 0.15rem;
+  left: 0.15rem;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.3);
+  transition: transform 0.2s var(--halo-ease);
+}
+.halo-switch[aria-checked="true"] .halo-switch-thumb { transform: translateX(1rem); }
+
+.halo-checkbox { position: relative; display: grid; flex-shrink: 0; width: 1.15rem; height: 1.15rem; margin-top: 0.1rem; }
+.halo-checkbox input {
+  appearance: none;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  border: 1.5px solid var(--halo-border-strong);
+  border-radius: 5px;
+  background: var(--halo-surface);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+.halo-checkbox input:checked,
+.halo-checkbox input:indeterminate { background: var(--halo-accent); border-color: var(--halo-accent); }
+.halo-checkbox input:focus-visible { outline: none; box-shadow: var(--halo-ring); }
+.halo-checkbox input:disabled { opacity: 0.5; cursor: not-allowed; }
+.halo-checkbox svg { position: absolute; inset: 0; width: 100%; height: 100%; fill: none; stroke: var(--halo-accent-fg); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; opacity: 0; transform: scale(0.6); transition: opacity 0.12s, transform 0.15s var(--halo-ease); }
+.halo-checkbox input:checked + svg,
+.halo-checkbox input:indeterminate + svg { opacity: 1; transform: none; }
+
+/* ── Toast ──────────────────────────────────────────── */
+.halo-toast-region { position: fixed; right: 1rem; bottom: 1rem; z-index: 1300; width: min(24rem, calc(100vw - 2rem)); }
+.halo-toast-list { display: grid; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
+.halo-toast {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  overflow: hidden;
+  padding: 0.85rem 0.85rem 0.85rem 1rem;
+  border: 1px solid var(--halo-border);
+  border-radius: var(--halo-radius);
+  background: var(--halo-surface);
+  color: var(--halo-fg);
+  box-shadow: var(--halo-shadow);
+  font-family: var(--halo-font);
+  animation: halo-slide 0.25s var(--halo-ease);
+}
+.halo-toast:focus-visible { outline: none; box-shadow: var(--halo-ring); }
+.halo-toast::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--halo-accent); }
+.halo-toast[data-variant="success"]::before { background: var(--halo-success); }
+.halo-toast[data-variant="error"]::before { background: var(--halo-danger); }
+.halo-toast-text { flex: 1; min-width: 0; }
+.halo-toast-title { margin: 0; font-size: 0.875rem; font-weight: 600; }
+.halo-toast-desc { margin: 0.2rem 0 0; font-size: 0.8125rem; color: var(--halo-muted); line-height: 1.45; }
+.halo-toast-close { display: grid; place-items: center; width: 1.6rem; height: 1.6rem; border: 0; border-radius: 6px; background: transparent; color: var(--halo-muted); cursor: pointer; }
+.halo-toast-close:hover { background: var(--halo-surface-2); color: var(--halo-fg); }
+.halo-toast-timer { position: absolute; left: 0; bottom: 0; height: 2px; width: 100%; background: var(--halo-accent-soft); transform-origin: left; animation: halo-timer linear forwards; }
+@keyframes halo-slide { from { opacity: 0; transform: translateY(12px); } }
+@keyframes halo-timer { to { transform: scaleX(0); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .halo-overlay, .halo-dialog, .halo-menu, .halo-listbox, .halo-tooltip, .halo-toast { animation: none; }
+  .halo-switch-thumb, .halo-checkbox svg, .halo-btn { transition: none; }
+}

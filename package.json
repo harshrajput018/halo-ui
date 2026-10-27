@@ -1,0 +1,43 @@
+{
+  "name": "halo-ui",
+  "version": "0.1.0",
+  "description": "Accessible React components built on the WAI-ARIA patterns — no Radix, no Headless UI.",
+  "type": "module",
+  "main": "./dist-lib/halo.js",
+  "types": "./dist-lib/types/index.d.ts",
+  "exports": {
+    ".": { "types": "./dist-lib/types/index.d.ts", "import": "./dist-lib/halo.js" },
+    "./halo.css": "./dist-lib/halo.css"
+  },
+  "files": ["dist-lib"],
+  "sideEffects": ["**/*.css"],
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "build:lib": "vite build -c vite.lib.config.ts && tsc -p tsconfig.lib.json",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "4.1.8",
+    "@testing-library/dom": "10.4.0",
+    "@testing-library/jest-dom": "6.6.3",
+    "@testing-library/react": "16.3.0",
+    "@testing-library/user-event": "14.6.1",
+    "@types/react": "19.1.6",
+    "@types/react-dom": "19.1.6",
+    "@vitejs/plugin-react": "4.5.2",
+    "axe-core": "4.10.3",
+    "jsdom": "26.1.0",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "tailwindcss": "4.1.8",
+    "typescript": "5.8.3",
+    "vite": "6.3.5",
+    "vitest": "3.2.4"
+  }
+}
